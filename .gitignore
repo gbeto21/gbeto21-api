@@ -105,3 +105,6 @@ dist
 
 #nodemon
 nodemon.json
+
+#PersonalBacklog
+backlog.txt

@@ -1,4 +1,14 @@
 const Skill = require('../../models/skill')
+const HttpError = require('../../models/httperror')
+
+const getSkill = args => {
+    return new Skill({
+        _id: args.skillInput._id,
+        name: args.skillInput.name,
+        description: args.skillInput.description,
+        percent: args.skillInput.percent
+    })
+}
 
 module.exports = {
     skills: () => {
@@ -14,11 +24,7 @@ module.exports = {
     },
     createSkill: args => {
 
-        const skill = new Skill({
-            name: args.skillInput.name,
-            description: args.skillInput.description,
-            percent: args.skillInput.percent
-        })
+        const skill = getSkill(args)
 
         return skill
             .save()
@@ -30,5 +36,20 @@ module.exports = {
                 console.log(err);
                 throw err;
             })
+    },
+    updateSkill: async args => {
+
+        try {
+
+            const skillData = getSkill(args)
+            const filter = { _id: skillData._id }
+            return await Skill.findOneAndUpdate(filter, skillData, { new: true })
+
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not update the skill.', 500)
+        }
+
     }
 }
+

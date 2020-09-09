@@ -9,9 +9,10 @@ type Skill{
 }
 
 input SkillInput{
+    _id: ID!,
     name: String!,
     description: String!,
-    percent: Int!
+    percent: Int!,
 }
 
 type RootQuery{
@@ -20,6 +21,7 @@ type RootQuery{
 
 type RootMutation {
     createSkill(skillInput: SkillInput): Skill
+    updateSkill(skillInput: SkillInput): Skill
 }
 
 schema {
