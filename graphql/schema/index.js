@@ -22,6 +22,7 @@ type RootQuery{
 type RootMutation {
     createSkill(skillInput: SkillInput): Skill
     updateSkill(skillInput: SkillInput): Skill
+    deleteSkill(_id: String):Skill
 }
 
 schema {

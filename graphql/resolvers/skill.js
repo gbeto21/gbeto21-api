@@ -49,7 +49,15 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not update the skill.', 500)
         }
-
+    },
+    deleteSkill: async args => {
+        try {
+            const filter = { _id: args._id }
+            return await Skill.findOneAndDelete(filter)
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not delete the skill.', 500)
+        }
     }
 }
 
