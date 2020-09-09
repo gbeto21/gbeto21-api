@@ -20,6 +20,11 @@ type Type {
     name: String!
 }
 
+input TypeInput {
+    _id: ID,
+    name: String!
+}
+
 type RootQuery{
     skills: [Skill!]!
     types: [Type!]!
@@ -29,6 +34,8 @@ type RootMutation {
     createSkill(skillInput: SkillInput): Skill
     updateSkill(skillInput: SkillInput): Skill
     deleteSkill(_id: String):Skill
+
+    createType(typeInput: TypeInput):Type
 }
 
 schema {

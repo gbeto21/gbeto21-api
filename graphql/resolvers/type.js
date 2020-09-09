@@ -3,8 +3,8 @@ const HttpError = require('../../models/httperror')
 
 const getType = args => {
     return new Type({
-        _id: args.type._id,
-        name: args.type.name
+        _id: args.typeInput._id,
+        name: args.typeInput.name
     })
 }
 
@@ -18,6 +18,20 @@ module.exports = {
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not get the types.', 500)
+        }
+    },
+    createType: async (args) => {
+        try {
+
+            let result = await getType(args).save()
+            return {
+                ...result._doc,
+                _id: result._doc._id.toString()
+            }
+
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not create the type.', 500)
         }
     }
 }
