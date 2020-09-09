@@ -15,8 +15,14 @@ input SkillInput{
     percent: Int!,
 }
 
+type Type {
+    _id: ID!,
+    name: String!
+}
+
 type RootQuery{
     skills: [Skill!]!
+    types: [Type!]!
 }
 
 type RootMutation {
