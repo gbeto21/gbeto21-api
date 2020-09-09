@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const languageSchema = new Schema(
+const technologySchema = new Schema(
     {
         name: {
             type: String,
@@ -15,4 +15,4 @@ const languageSchema = new Schema(
     }
 )
 
-module.exports = mongoose.model('Language', languageSchema)
+module.exports = mongoose.model('Technology', technologySchema)

@@ -9,7 +9,7 @@ type Skill{
 }
 
 input SkillInput{
-    _id: ID!,
+    _id: ID,
     name: String!,
     description: String!,
     percent: Int!,

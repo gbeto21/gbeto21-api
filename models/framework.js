@@ -6,10 +6,10 @@ const frameworkSchema = new Schema({
         type: String,
         required: true
     },
-    language: {
+    technology: {
         type: mongoose.Types.ObjectId,
         required: true,
-        ref: 'Language'
+        ref: 'Technology'
     },
     projects: [{
         type: mongoose.Types.ObjectId,
