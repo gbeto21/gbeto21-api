@@ -51,14 +51,10 @@ app.use('/graphql',
             },
             createSkill: args => {
 
-                console.log(args);
-                console.log('-----');
-                console.log(args.eventInput);
-
                 const skill = new Skill({
-                    name: args.name || 'defaultName',
-                    description: args.description || 'defaultDescription',
-                    percent: args.percent || 1
+                    name: args.skillInput.name,
+                    description: args.skillInput.description,
+                    percent: args.skillInput.percent
                 })
 
                 return skill
