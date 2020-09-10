@@ -59,7 +59,7 @@ type Project{
 }
 
 input ProjectInput{
-    _id: ID!,
+    _id: ID,
     name: String!,
     description: String!,
     image: String!,
@@ -91,6 +91,8 @@ type RootMutation {
     createTechnology(technologyInput: TechnologyInput):Technology
     updateTechnology(technologyInput: TechnologyInput):Technology
     deleteTechnology(_id: String):Technology
+
+    createProject(projectInput: ProjectInput):Project
 }
 
 schema {

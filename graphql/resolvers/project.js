@@ -1,14 +1,51 @@
 const Project = require('../../models/project')
-const HTTPError = require('../../models/httperror')
+const Technology = require('../../models/technology')
+const HttpError = require('../../models/httperror')
+
+const getProject = args => {
+    return new Project({
+        _id: args.projectInput._id,
+        name: args.projectInput.name,
+        description: args.projectInput.description,
+        image: args.projectInput.image,
+        url: args.projectInput.url,
+        technologys: getTechnologys(args.projectInput.technologys)
+    })
+}
+
+const getTechnologys = args => {
+    const technologys = []
+    args.map(technology => {
+        technologys.push(
+            new Technology({
+                _id: technology._id,
+                name: technology.name
+            })
+        )
+    })
+
+    return technologys
+}
 
 module.exports = {
     projects: async () => {
         try {
-            return await Project.find()
-            //.populate('technologys')
+            return await Project.find().populate('technologys')
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not get the projects.', 500)
+        }
+    },
+    createProject: async args => {
+        try {
+            let result = await getProject(args).save()
+            return {
+                ...result._doc,
+                _id: result._doc._id.toString()
+            }
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not create the project.', 500)
         }
     }
 }
