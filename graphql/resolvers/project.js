@@ -59,5 +59,13 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not update the project.', 500)
         }
+    },
+    deleteProject: async args => {
+        try {
+            return await Project.findOneAndDelete({ _id: args._id })
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not delete the project.', 500)
+        }
     }
 }
