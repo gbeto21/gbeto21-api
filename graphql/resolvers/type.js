@@ -11,30 +11,25 @@ const getType = args => {
 module.exports = {
     types: async () => {
         try {
-
-            let res = await Type.find()
-            console.log(res);
-            return res
+            return await Type.find()
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not get the types.', 500)
         }
     },
-    createType: async (args) => {
+    createType: async args => {
         try {
-
             let result = await getType(args).save()
             return {
                 ...result._doc,
                 _id: result._doc._id.toString()
             }
-
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not create the type.', 500)
         }
     },
-    updateType: async (args) => {
+    updateType: async args => {
         try {
             return await
                 Type.findOneAndUpdate(
@@ -45,6 +40,14 @@ module.exports = {
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not update the type.', 500)
+        }
+    },
+    deleteType: async args => {
+        try {
+            return await Type.findOneAndDelete({ _id: args._id })
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not delte the type.')
         }
     }
 }

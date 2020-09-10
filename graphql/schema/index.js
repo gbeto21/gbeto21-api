@@ -37,6 +37,7 @@ type RootMutation {
 
     createType(typeInput: TypeInput):Type
     updateType(typeInput: TypeInput):Type
+    deleteType(_id: String):Type
 }
 
 schema {
