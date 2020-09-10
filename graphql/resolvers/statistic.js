@@ -30,5 +30,18 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not create the statistic.', 500)
         }
+    },
+    updateStatistic: async args => {
+        try {
+            return await
+                Statistic.findOneAndUpdate(
+                    { _id: args.statisticInput._id },
+                    getStatistic(args),
+                    { new: true }
+                )
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not update the statistic.', 500)
+        }
     }
 }
