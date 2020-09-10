@@ -6,12 +6,7 @@ const technologySchema = new Schema(
         name: {
             type: String,
             required: true
-        },
-        frameworks: [{
-            type: mongoose.Types.ObjectId,
-            required: true,
-            ref: "Framework"
-        }]
+        }
     }
 )
 

@@ -18,11 +18,11 @@ const projectSchema = new Schema({
         type: String,
         required: true
     },
-    framework: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Framework",
-        required: true
-    }
+    technologys: [{
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: "Technology"
+    }]
 })
 
 module.exports = mongoose.Model('Project', projectSchema)
