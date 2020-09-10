@@ -36,6 +36,7 @@ type RootMutation {
     deleteSkill(_id: String):Skill
 
     createType(typeInput: TypeInput):Type
+    updateType(typeInput: TypeInput):Type
 }
 
 schema {

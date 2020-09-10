@@ -33,5 +33,18 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not create the type.', 500)
         }
+    },
+    updateType: async (args) => {
+        try {
+            return await
+                Type.findOneAndUpdate(
+                    { _id: args.typeInput._id },
+                    getType(args),
+                    { new: true }
+                )
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not update the type.', 500)
+        }
     }
 }
