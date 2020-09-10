@@ -39,10 +39,21 @@ input StatisticInput {
     icon: String!
 }
 
+type Technology {
+    _id: ID!,
+    name: String!
+}
+
+input TechnologyInput {
+    _id: ID,
+    name: String!
+}
+
 type RootQuery{
     skills: [Skill!]!
     types: [Type!]!
     statistics: [Statistic!]!
+    technologys: [Technology!]!
 }
 
 type RootMutation {
