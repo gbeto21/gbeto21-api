@@ -67,12 +67,30 @@ input ProjectInput{
     technologys: [TechnologyInput!]!
 } 
 
+type User {
+    _id: ID!
+    email: String!
+    password: String    
+}
+
+input UserInput {
+    email: String!
+    password: String!
+}
+
+type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+}
+
 type RootQuery{
     skills: [Skill!]!
     types: [Type!]!
     statistics: [Statistic!]!
     technologys: [Technology!]!
     projects: [Project]
+    login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation {
@@ -95,6 +113,8 @@ type RootMutation {
     createProject(projectInput: ProjectInput):Project
     updateProject(projectInput: ProjectInput):Project
     deleteProject(_id: String):Project
+
+    createUser(userInput: UserInput): User
 }
 
 schema {
