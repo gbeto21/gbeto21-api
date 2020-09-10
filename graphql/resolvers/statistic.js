@@ -18,5 +18,17 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not get the statistics.', 500)
         }
+    },
+    createStatistic: async args => {
+        try {
+            let result = await getStatistic(args).save()
+            return {
+                ...result._doc,
+                _id: result._doc._id.toString()
+            }
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not create the statistic.', 500)
+        }
     }
 }

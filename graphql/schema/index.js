@@ -32,7 +32,7 @@ type Statistic {
     icon: String!
 }
 
-type statisticInput {
+input StatisticInput {
     _id: ID,
     name: String!,
     value: Int!,
@@ -53,6 +53,8 @@ type RootMutation {
     createType(typeInput: TypeInput):Type
     updateType(typeInput: TypeInput):Type
     deleteType(_id: String):Type
+
+    createStatistic(statisticInput: StatisticInput):Statistic
 }
 
 schema {
