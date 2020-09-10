@@ -47,5 +47,17 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not create the project.', 500)
         }
+    },
+    updateProject: async args => {
+        try {
+            return await Project.findOneAndUpdate(
+                { _id: args.projectInput._id },
+                getProject(args),
+                { new: true }
+            )
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not update the project.', 500)
+        }
     }
 }

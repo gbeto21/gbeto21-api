@@ -93,6 +93,7 @@ type RootMutation {
     deleteTechnology(_id: String):Technology
 
     createProject(projectInput: ProjectInput):Project
+    updateProject(projectInput: ProjectInput):Project
 }
 
 schema {
