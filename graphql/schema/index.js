@@ -71,6 +71,7 @@ type RootMutation {
 
     createTechnology(technologyInput: TechnologyInput):Technology
     updateTechnology(technologyInput: TechnologyInput):Technology
+    deleteTechnology(_id: String):Technology
 }
 
 schema {

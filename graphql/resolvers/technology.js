@@ -40,5 +40,13 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not update the technology.', 500)
         }
+    },
+    deleteTechnology: async args => {
+        try {
+            return await Technology.findOneAndDelete({ _id: args._id })
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not delet the technology.', 500)
+        }
     }
 }
