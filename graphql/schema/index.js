@@ -25,9 +25,24 @@ input TypeInput {
     name: String!
 }
 
+type Statistic {
+    _id: ID!,
+    name: String!,
+    value: Int!,
+    icon: String!
+}
+
+type statisticInput {
+    _id: ID,
+    name: String!,
+    value: Int!,
+    icon: String!
+}
+
 type RootQuery{
     skills: [Skill!]!
     types: [Type!]!
+    statistics: [Statistic!]!
 }
 
 type RootMutation {
