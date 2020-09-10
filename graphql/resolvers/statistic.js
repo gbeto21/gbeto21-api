@@ -43,5 +43,13 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not update the statistic.', 500)
         }
+    },
+    deleteStatistic: async args => {
+        try {
+            return await Statistic.findOneAndDelete({ _id: args._id })
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not delete the statistic.', 500)
+        }
     }
 }

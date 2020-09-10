@@ -56,6 +56,7 @@ type RootMutation {
 
     createStatistic(statisticInput: StatisticInput):Statistic
     updateStatistic(statisticInput: StatisticInput):Statistic
+    deleteStatistic(_id: String):Statistic
 }
 
 schema {
