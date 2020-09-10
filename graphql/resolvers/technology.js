@@ -28,5 +28,17 @@ module.exports = {
             console.log(error);
             return new HttpError('Something went wrong, could not create the technology.', 500)
         }
+    },
+    updateTechnology: async args => {
+        try {
+            return await Technology.findOneAndUpdate(
+                { _id: args.technologyInput._id },
+                getTechnology(args),
+                { new: true }
+            )
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not update the technology.', 500)
+        }
     }
 }

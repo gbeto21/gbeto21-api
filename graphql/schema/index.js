@@ -70,6 +70,7 @@ type RootMutation {
     deleteStatistic(_id: String):Statistic
 
     createTechnology(technologyInput: TechnologyInput):Technology
+    updateTechnology(technologyInput: TechnologyInput):Technology
 }
 
 schema {
