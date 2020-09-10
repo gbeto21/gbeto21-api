@@ -21,8 +21,8 @@ const projectSchema = new Schema({
     technologys: [{
         type: mongoose.Types.ObjectId,
         required: true,
-        ref: "Technology"
+        ref: 'Technology'
     }]
 })
 
-module.exports = mongoose.Model('Project', projectSchema)
+module.exports = mongoose.model('Project', projectSchema)

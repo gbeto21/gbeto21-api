@@ -49,11 +49,30 @@ input TechnologyInput {
     name: String!
 }
 
+type Project{
+    _id: ID!,
+    name: String!,
+    description: String!,
+    image: String!,
+    url: String!,
+    technologys: [Technology!]
+}
+
+input ProjectInput{
+    _id: ID!,
+    name: String!,
+    description: String!,
+    image: String!,
+    url: String!,
+    technologys: [TechnologyInput!]!
+} 
+
 type RootQuery{
     skills: [Skill!]!
     types: [Type!]!
     statistics: [Statistic!]!
     technologys: [Technology!]!
+    projects: [Project]
 }
 
 type RootMutation {
