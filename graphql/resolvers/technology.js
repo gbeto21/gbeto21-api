@@ -1,5 +1,6 @@
 const Technology = require('../../models/technology')
 const HttpError = require('../../models/httperror')
+const auth = require('../../middleware/checkAuth')
 
 const getTechnology = args => {
     return new Technology({
@@ -17,7 +18,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not get the technologys.', 500)
         }
     },
-    createTechnology: async args => {
+    createTechnology: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             let result = await getTechnology(args).save()
             return {
@@ -29,7 +31,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not create the technology.', 500)
         }
     },
-    updateTechnology: async args => {
+    updateTechnology: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Technology.findOneAndUpdate(
                 { _id: args.technologyInput._id },
@@ -41,7 +44,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not update the technology.', 500)
         }
     },
-    deleteTechnology: async args => {
+    deleteTechnology: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Technology.findOneAndDelete({ _id: args._id })
         } catch (error) {
