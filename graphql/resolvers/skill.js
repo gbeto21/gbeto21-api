@@ -1,5 +1,6 @@
 const Skill = require('../../models/skill')
 const HttpError = require('../../models/httperror')
+const auth = require('../../middleware/checkAuth')
 
 const getSkill = args => {
     return new Skill({
@@ -22,8 +23,9 @@ module.exports = {
                 throw err;
             })
     },
-    createSkill: args => {
+    createSkill: (args, req) => {
 
+        auth.validateUserIsAuthenticated(req)
         const skill = getSkill(args)
 
         return skill
@@ -37,8 +39,8 @@ module.exports = {
                 throw err;
             })
     },
-    updateSkill: async args => {
-
+    updateSkill: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
 
             const skillData = getSkill(args)
@@ -50,7 +52,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not update the skill.', 500)
         }
     },
-    deleteSkill: async args => {
+    deleteSkill: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             const filter = { _id: args._id }
             return await Skill.findOneAndDelete(filter)
