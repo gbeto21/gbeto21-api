@@ -1,5 +1,6 @@
 const Type = require('../../models/type')
 const HttpError = require('../../models/httperror')
+const auth = require('../../middleware/checkAuth')
 
 const getType = args => {
     return new Type({
@@ -17,7 +18,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not get the types.', 500)
         }
     },
-    createType: async args => {
+    createType: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             let result = await getType(args).save()
             return {
@@ -29,7 +31,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not create the type.', 500)
         }
     },
-    updateType: async args => {
+    updateType: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await
                 Type.findOneAndUpdate(
@@ -42,7 +45,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not update the type.', 500)
         }
     },
-    deleteType: async args => {
+    deleteType: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Type.findOneAndDelete({ _id: args._id })
         } catch (error) {
