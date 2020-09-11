@@ -38,9 +38,7 @@ module.exports = {
         }
     },
     createProject: async (args, req) => {
-        
         auth.validateUserIsAuthenticated(req)
-
         try {
             let result = await getProject(args).save()
             return {
@@ -52,7 +50,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not create the project.', 500)
         }
     },
-    updateProject: async args => {
+    updateProject: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Project.findOneAndUpdate(
                 { _id: args.projectInput._id },
@@ -64,7 +63,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not update the project.', 500)
         }
     },
-    deleteProject: async args => {
+    deleteProject: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Project.findOneAndDelete({ _id: args._id })
         } catch (error) {
