@@ -1,6 +1,7 @@
 const Project = require('../../models/project')
 const Technology = require('../../models/technology')
 const HttpError = require('../../models/httperror')
+const auth = require('../../middleware/checkAuth')
 
 const getProject = args => {
     return new Project({
@@ -27,12 +28,6 @@ const getTechnologys = args => {
     return technologys
 }
 
-const validateUserAuthenticated = req => {
-    if (!req.isAuth) {
-        throw new HttpError('Restricted access', 403)
-    }
-}
-
 module.exports = {
     projects: async () => {
         try {
@@ -43,7 +38,9 @@ module.exports = {
         }
     },
     createProject: async (args, req) => {
-        validateUserAuthenticated(req)
+        
+        auth.validateUserIsAuthenticated(req)
+
         try {
             let result = await getProject(args).save()
             return {

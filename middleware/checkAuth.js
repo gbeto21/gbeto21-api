@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken')
+const HttpError = require('../models/httperror')
 
-module.exports = (req, res, next) => {
+const validateUserIsAuthenticated = req => {
+    if (!req.isAuth) {
+        throw new HttpError('Restricted access', 403)
+    }
+}
+
+const validateUserToken = (req, res, next) => {
 
     try {
 
@@ -33,3 +40,6 @@ module.exports = (req, res, next) => {
         return next()
     }
 }
+
+exports.validateUserIsAuthenticated = validateUserIsAuthenticated
+exports.validateUserToken = validateUserToken
