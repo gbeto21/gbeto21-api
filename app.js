@@ -34,7 +34,7 @@ app.use(
     graphqlHTTP({
         schema: graphQLSchema,
         rootValue: graphQLResolvers,
-        graphiql: true
+        graphiql: process.env.GRAPHIQL
     })
 )
 
