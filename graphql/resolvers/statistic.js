@@ -1,5 +1,6 @@
 const Statistic = require('../../models/statistic')
 const HttpError = require('../../models/httperror')
+const auth = require('../../middleware/checkAuth')
 
 const getStatistic = args => {
     return new Statistic({
@@ -19,7 +20,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not get the statistics.', 500)
         }
     },
-    createStatistic: async args => {
+    createStatistic: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             let result = await getStatistic(args).save()
             return {
@@ -31,7 +33,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not create the statistic.', 500)
         }
     },
-    updateStatistic: async args => {
+    updateStatistic: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await
                 Statistic.findOneAndUpdate(
@@ -44,7 +47,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not update the statistic.', 500)
         }
     },
-    deleteStatistic: async args => {
+    deleteStatistic: async (args, req) => {
+        auth.validateUserIsAuthenticated(req)
         try {
             return await Statistic.findOneAndDelete({ _id: args._id })
         } catch (error) {
