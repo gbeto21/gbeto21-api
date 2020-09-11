@@ -27,6 +27,12 @@ const getTechnologys = args => {
     return technologys
 }
 
+const validateUserAuthenticated = req => {
+    if (!req.isAuth) {
+        throw new HttpError('Restricted access', 403)
+    }
+}
+
 module.exports = {
     projects: async () => {
         try {
@@ -36,7 +42,8 @@ module.exports = {
             return new HttpError('Something went wrong, could not get the projects.', 500)
         }
     },
-    createProject: async args => {
+    createProject: async (args, req) => {
+        validateUserAuthenticated(req)
         try {
             let result = await getProject(args).save()
             return {
