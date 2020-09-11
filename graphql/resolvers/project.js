@@ -1,17 +1,26 @@
+const fs = require('fs')
+
 const Project = require('../../models/project')
 const Technology = require('../../models/technology')
 const HttpError = require('../../models/httperror')
 const auth = require('../../middleware/checkAuth')
+const { log } = require('console')
 
-const getProject = args => {
+const getProject = (args, req) => {
     return new Project({
         _id: args.projectInput._id,
         name: args.projectInput.name,
         description: args.projectInput.description,
-        image: args.projectInput.image,
+        image: getImagePath(req),
         url: args.projectInput.url,
         technologys: getTechnologys(args.projectInput.technologys)
     })
+}
+
+const getImagePath = req => {
+    const url = req.protocol + '://' + req.get("host")
+    let imagePath = url + "/images/" + req.file.filename
+    return imagePath
 }
 
 const getTechnologys = args => {
@@ -40,7 +49,7 @@ module.exports = {
     createProject: async (args, req) => {
         auth.validateUserIsAuthenticated(req)
         try {
-            let result = await getProject(args).save()
+            let result = await getProject(args, req).save()
             return {
                 ...result._doc,
                 _id: result._doc._id.toString()
@@ -66,7 +75,11 @@ module.exports = {
     deleteProject: async (args, req) => {
         auth.validateUserIsAuthenticated(req)
         try {
-            return await Project.findOneAndDelete({ _id: args._id })
+            let result = await Project.findOneAndDelete({ _id: args._id })
+            fs.unlink(result.image, error => {
+                console.log('Error deleting the image.');
+                console.log(error);
+            })
         } catch (error) {
             console.log(error);
             return new HttpError('Something went wrong, could not delete the project.', 500)

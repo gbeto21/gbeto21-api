@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -7,10 +8,13 @@ const graphQLSchema = require('./graphql/schema/index')
 const graphQLResolvers = require('./graphql/resolvers/index')
 
 const auth = require('./middleware/checkAuth')
+const fileUpload = require('./middleware/fileUpload')
 
 const app = express()
 
 app.use(bodyParser.json())
+
+app.use("/images", express.static(path.join('/images')))
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,7 +28,9 @@ app.use((req, res, next) => {
 
 app.use(auth.validateUserToken)
 
-app.use('/graphql',
+app.use(
+    '/graphql',
+    fileUpload,
     graphqlHTTP({
         schema: graphQLSchema,
         rootValue: graphQLResolvers,
