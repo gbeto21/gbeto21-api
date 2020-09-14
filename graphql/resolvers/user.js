@@ -49,7 +49,7 @@ module.exports = {
                     email: user.email
                 },
                 `${process.env.SECRET_WORD}`,
-                { expiresIn: '1h' }
+                { expiresIn: '1d' }
             )
 
             return { userId: user.id, token: token, tokenExpiration: 1 }
