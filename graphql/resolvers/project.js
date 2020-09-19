@@ -4,7 +4,6 @@ const Project = require('../../models/project')
 const Technology = require('../../models/technology')
 const HttpError = require('../../models/httperror')
 const auth = require('../../middleware/checkAuth')
-const { log } = require('console')
 
 const getProject = (args, req) => {
     return new Project({
@@ -18,8 +17,6 @@ const getProject = (args, req) => {
 }
 
 const getImagePath = req => {
-    console.log('Req file: ');
-    console.log(req.file);
     if (req.file) {
         const url = req.protocol + '://' + req.get("host")
         let imagePath = url + "/images/" + req.file.filename
@@ -33,8 +30,7 @@ const getTechnologys = args => {
     args.map(technology => {
         technologys.push(
             new Technology({
-                _id: technology,
-                // name: technology.name
+                _id: technology,                
             })
         )
     })
@@ -54,7 +50,6 @@ module.exports = {
     createProject: async (args, req) => {
         auth.validateUserIsAuthenticated(req)
         try {
-            console.log('Creating the project.');
             let result = await getProject(args, req).save()
             return {
                 ...result._doc,
@@ -70,7 +65,7 @@ module.exports = {
         try {
             return await Project.findOneAndUpdate(
                 { _id: args.projectInput._id },
-                getProject(args),
+                getProject(args, req),
                 { new: true }
             )
         } catch (error) {
