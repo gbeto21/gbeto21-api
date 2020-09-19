@@ -18,9 +18,14 @@ const getProject = (args, req) => {
 }
 
 const getImagePath = req => {
-    const url = req.protocol + '://' + req.get("host")
-    let imagePath = url + "/images/" + req.file.filename
-    return imagePath
+    console.log('Req file: ');
+    console.log(req.file);
+    if (req.file) {
+        const url = req.protocol + '://' + req.get("host")
+        let imagePath = url + "/images/" + req.file.filename
+        return imagePath
+    }
+    return 'dymmypath'
 }
 
 const getTechnologys = args => {
@@ -28,8 +33,8 @@ const getTechnologys = args => {
     args.map(technology => {
         technologys.push(
             new Technology({
-                _id: technology._id,
-                name: technology.name
+                _id: technology,
+                // name: technology.name
             })
         )
     })
@@ -49,6 +54,7 @@ module.exports = {
     createProject: async (args, req) => {
         auth.validateUserIsAuthenticated(req)
         try {
+            console.log('Creating the project.');
             let result = await getProject(args, req).save()
             return {
                 ...result._doc,

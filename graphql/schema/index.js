@@ -64,7 +64,7 @@ input ProjectInput{
     description: String!,
     image: String!,
     url: String!,
-    technologys: [TechnologyInput!]!
+    technologys: [String!]!
 } 
 
 type User {
