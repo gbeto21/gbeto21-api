@@ -89,7 +89,7 @@ type RootQuery{
     types: [Type!]!
     statistics: [Statistic!]!
     technologys: [Technology!]!
-    projects: [Project]
+    projects(technologys: [TechnologyInput!]): [Project]
     login(email: String!, password: String!): AuthData!
 }
 

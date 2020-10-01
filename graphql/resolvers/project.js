@@ -30,7 +30,7 @@ const getTechnologys = args => {
     args.map(technology => {
         technologys.push(
             new Technology({
-                _id: technology,                
+                _id: technology,
             })
         )
     })
@@ -38,9 +38,28 @@ const getTechnologys = args => {
     return technologys
 }
 
+const searchByTechnologys = async (technologys) => {
+
+    let technologysNames = technologys.technologys.map(th => th.name)
+    var options = {
+        path: 'technologys',
+        match: { name: { $in: technologysNames } }
+    };
+
+    let projects = await Project
+        .find()
+        .populate(options)
+
+    let projectsFiltered = projects.filter(tc => tc.technologys.length > 0)
+    return projectsFiltered
+}
+
 module.exports = {
-    projects: async () => {
+    projects: async (technologys) => {
         try {
+            if (technologys && technologys.technologys) {
+                return await searchByTechnologys(technologys)
+            }
             return await Project.find().populate('technologys')
         } catch (error) {
             console.log(error);
