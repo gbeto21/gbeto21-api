@@ -4,7 +4,7 @@
   "description": "API for my personal web site.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon app.js",
+    "start:dev": "set HOST_URL=https://gbeto21-api.herokuapp.com&& nodemon app.js",
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

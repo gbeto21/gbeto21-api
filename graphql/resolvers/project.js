@@ -18,11 +18,9 @@ const getProject = (args, req) => {
 
 const getImagePath = req => {
     if (req.file) {
-        const url = req.protocol + '://' + req.get("host")
-        let imagePath = url + "/images/" + req.file.filename
-        return imagePath
+        return `${process.env.HOST_URL}/images/${req.file.filename}`
     }
-    return 'dymmypath'
+    return ''
 }
 
 const getTechnologys = args => {

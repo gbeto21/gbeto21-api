@@ -108,3 +108,4 @@ nodemon.json
 
 #PersonalBacklog
 backlog.txt
+.vercel
