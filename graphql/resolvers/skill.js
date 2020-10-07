@@ -12,16 +12,13 @@ const getSkill = args => {
 }
 
 module.exports = {
-    skills: () => {
-        return Skill.find()
-            .then(skills => {
-                return skills.map(skill => {
-                    return { ...skill._doc, _id: skill.id }
-                })
-            })
-            .catch(err => {
-                throw err;
-            })
+    skills: async () => {
+        try {
+            return await Skill.find().sort({ "name": 1 })
+        } catch (error) {
+            console.log(error);
+            return new HttpError('Something went wrong, could not get the skills.', 500)
+        }
     },
     createSkill: (args, req) => {
 
